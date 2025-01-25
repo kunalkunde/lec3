@@ -10,7 +10,7 @@ library(tidyverse)
 library(readr)
 
 ### Set working directory
-setwd("C:/Users/Kunal Kunde/OneDrive/Documents/SOM 660/Lec 2")
+setwd("C:/Users/Kunal Kunde/OneDrive/Documents/SOM 660/Lec 3")
 source("computeMthRetFn.R")
 
 # showtext package enables addition of fonts
@@ -35,8 +35,6 @@ colnames(mthNominalDollarRetDataForCorrgram) <- c("Aus","Jpn","Chn","Can","Sui",
 mthNominalDollarRetDataForCorrgram <- data.frame(mthNominalDollarRetDataForCorrgram[,order(colnames(mthNominalDollarRetDataForCorrgram))])
 correlationMatrix <- cor(mthNominalDollarRetDataForCorrgram[,-1])
 correlationMatrix = format(round(correlationMatrix[,1:18],2),nsmall=2)
-#GrObForMyCorrelationMatrix <- tableGrob(correlationMatrix, rows = colnames(mthNominalDollarRetDataForCorrgram), cols = colnames(mthNominalDollarRetDataForCorrgram))
-#ggsave("CorrMatrix_eq_ret_conv_per_spot_USD.png", GrObForMyCorrelationMatrix, width=14, height=8.50, units="in", scale=1)
 write.table(correlationMatrix, file = "correlation_matrix_eq_ret_conv_per_spot_USD.txt", sep ="\t", row.names = TRUE, col.names = TRUE )
 
-corrgram(mthNominalDollarRetDataForCorrgram, order=FALSE, lower.panel=panel.pts, upper.panel=panel.pie, text.panel=panel.txt, main="Corrgram of monthly dollarized returns\n31-Dec-1999 to 15-Dec-2021")
+corrgram(mthNominalDollarRetDataForCorrgram, order=FALSE, lower.panel=panel.cor, upper.panel=panel.ellipse, text.panel=panel.txt, main="Corrgram of monthly dollarized returns\n31-Dec-1999 to 15-Dec-2021")
